@@ -35,7 +35,8 @@ async def handle_time_entry(request: Request):
         print("Validating Endpoint")
         validation_code = req['validation_code'] if 'validation_code' in req else None
         if not validation_code:
-            raise HTTPException(status_code=404, detail="Validation Code was not found")
+            print("Pong!")
+            return "Pong!"
         return Response(content=json.dumps({"validation_code": validation_code}), media_type='application/json')
     else:
         try:
@@ -47,7 +48,7 @@ async def handle_time_entry(request: Request):
                 "project_id": payload['project_id'],
                 "start": payload['start'],
                 "stop": payload['stop'],
-                "tags": ", ".join(payload['tags']),
+                "tags": ", ".join(payload['tags']) if payload['tags'] else None,
                 "user_id": payload['user_id']
             })
         except Exception as e:
