@@ -32,11 +32,11 @@ async def handle_time_entry(request: Request):
         raise HTTPException(status_code=403, detail="The request was not validated")
     
     if is_ping:
-        print("Validating Endpoint")
         validation_code = req['validation_code'] if 'validation_code' in req else None
         if not validation_code:
             print("Pong!")
             return "Pong!"
+        print("Validating Endpoint")
         return Response(content=json.dumps({"validation_code": validation_code}), media_type='application/json')
     else:
         try:
